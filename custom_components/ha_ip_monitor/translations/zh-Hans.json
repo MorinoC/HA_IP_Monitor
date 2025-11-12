@@ -1,0 +1,73 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "VPS连接设置",
+        "description": "配置到VPS服务器的连接",
+        "data": {
+          "vps_host": "VPS主机地址",
+          "vps_port": "SSH端口",
+          "vps_username": "SSH用户名",
+          "use_ssh_key": "使用SSH密钥认证"
+        },
+        "data_description": {
+          "vps_host": "VPS的IP地址或域名(例如: 167.179.78.163)",
+          "vps_port": "SSH端口号(默认: 22)",
+          "vps_username": "用于登录VPS的SSH用户名",
+          "use_ssh_key": "勾选此项使用SSH密钥代替密码"
+        }
+      },
+      "password": {
+        "title": "密码认证",
+        "description": "输入您的SSH密码",
+        "data": {
+          "vps_password": "SSH密码"
+        }
+      },
+      "ssh_key": {
+        "title": "SSH密钥认证",
+        "description": "提供您的SSH私钥",
+        "data": {
+          "vps_ssh_key": "SSH私钥"
+        },
+        "data_description": {
+          "vps_ssh_key": "在此粘贴您的SSH私钥内容"
+        }
+      },
+      "api_config": {
+        "title": "API配置",
+        "description": "配置监控API设置",
+        "data": {
+          "api_port": "API端口",
+          "api_token": "API令牌"
+        },
+        "data_description": {
+          "api_port": "监控API服务的端口(默认: 5001)",
+          "api_token": "用于API访问的认证令牌"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "无法连接到VPS",
+      "invalid_auth": "认证凭据无效",
+      "invalid_host": "VPS主机地址无效",
+      "unknown": "发生未知错误"
+    },
+    "abort": {
+      "already_configured": "此VPS已经配置过了"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "HA IP Monitor 选项",
+        "description": "配置高级选项",
+        "data": {
+          "scan_interval": "更新间隔(秒)",
+          "auto_block": "自动封锁威胁",
+          "block_threshold": "自动封锁阈值(攻击次数)"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "VPS Connection Settings",
+        "description": "Configure the connection to your VPS server",
+        "data": {
+          "vps_host": "VPS Host Address",
+          "vps_port": "SSH Port",
+          "vps_username": "SSH Username",
+          "use_ssh_key": "Use SSH Key Authentication"
+        },
+        "data_description": {
+          "vps_host": "The IP address or domain name of your VPS (e.g., 167.179.78.163)",
+          "vps_port": "SSH port number (default: 22)",
+          "vps_username": "SSH username for VPS login",
+          "use_ssh_key": "Check this if you want to use SSH key instead of password"
+        }
+      },
+      "password": {
+        "title": "Password Authentication",
+        "description": "Enter your SSH password",
+        "data": {
+          "vps_password": "SSH Password"
+        }
+      },
+      "ssh_key": {
+        "title": "SSH Key Authentication",
+        "description": "Provide your SSH private key",
+        "data": {
+          "vps_ssh_key": "SSH Private Key"
+        },
+        "data_description": {
+          "vps_ssh_key": "Paste your SSH private key content here"
+        }
+      },
+      "api_config": {
+        "title": "API Configuration",
+        "description": "Configure the monitoring API settings",
+        "data": {
+          "api_port": "API Port",
+          "api_token": "API Token"
+        },
+        "data_description": {
+          "api_port": "Port for the monitoring API service (default: 5001)",
+          "api_token": "Authentication token for API access"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect to VPS",
+      "invalid_auth": "Invalid authentication credentials",
+      "invalid_host": "Invalid VPS host address",
+      "unknown": "Unexpected error occurred"
+    },
+    "abort": {
+      "already_configured": "This VPS is already configured"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "HA IP Monitor Options",
+        "description": "Configure advanced options",
+        "data": {
+          "scan_interval": "Update Interval (seconds)",
+          "auto_block": "Auto Block Threats",
+          "block_threshold": "Auto Block Threshold (attacks)"
+        }
+      }
+    }
+  }
+}

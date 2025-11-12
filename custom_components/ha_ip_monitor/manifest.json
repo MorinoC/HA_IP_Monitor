@@ -1,0 +1,17 @@
+{
+  "domain": "ha_ip_monitor",
+  "name": "HA IP Monitor",
+  "codeowners": ["@cody"],
+  "config_flow": true,
+  "documentation": "https://github.com/cody/HA_IP_Monitor",
+  "issue_tracker": "https://github.com/cody/HA_IP_Monitor/issues",
+  "iot_class": "cloud_polling",
+  "requirements": [
+    "requests>=2.31.0",
+    "paramiko>=3.3.0"
+  ],
+  "version": "1.0.0",
+  "dependencies": [],
+  "after_dependencies": [],
+  "integration_type": "service"
+}

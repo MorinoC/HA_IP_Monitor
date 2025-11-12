@@ -1,0 +1,11 @@
+{
+  "name": "HA IP Monitor",
+  "content_in_root": false,
+  "filename": "ha_ip_monitor",
+  "render_readme": true,
+  "domains": [
+    "sensor"
+  ],
+  "iot_class": "Cloud Polling",
+  "homeassistant": "2023.11.0"
+}

@@ -1,0 +1,56 @@
+# HA IP Monitor - VPS監視API設定テンプレート
+
+# API設定
+api:
+  port: 5001
+  token: "your-secure-token-here"
+  host: "0.0.0.0"
+
+# 監視設定
+monitoring:
+  # ログファイルのパス
+  log_files:
+    auth: "/var/log/auth.log"
+    syslog: "/var/log/syslog"
+    openvpn: "/var/log/openvpn.log"
+    wireguard: "/var/log/wireguard.log"
+
+  # 脅威検出閾値
+  thresholds:
+    ssh_failed_attempts: 5  # 5分以内の失敗回数
+    vpn_failed_attempts: 3
+    auto_block_threshold: 10  # この回数を超えたら自動ブロック
+
+  # 更新間隔（秒）
+  update_interval: 60
+
+# ファイアウォール設定
+firewall:
+  type: "ufw"  # ufw または iptables
+  block_duration: 86400  # 24時間（秒単位）
+  permanent_block: false
+
+# ホワイトリスト
+whitelist:
+  ips:
+    - "192.168.0.0/24"  # ローカルネットワーク
+    - "10.0.0.0/24"     # WireGuardネットワーク
+  countries:
+    - "JP"  # 日本からのアクセスは常に許可（オプション）
+
+# GeoIP設定
+geoip:
+  database_path: "/usr/share/GeoIP/GeoLite2-City.mmdb"
+  auto_update: true
+
+# 通知設定
+notifications:
+  enabled: true
+  webhook_url: ""  # Webhookを使用する場合
+
+# ログ設定
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  file: "/var/log/ha_ip_monitor.log"
+  max_size: 10485760  # 10MB
+  backup_count: 5
