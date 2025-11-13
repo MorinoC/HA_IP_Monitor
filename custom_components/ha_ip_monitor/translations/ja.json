@@ -1,0 +1,73 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "VPS接続設定",
+        "description": "VPSサーバーへの接続を設定します",
+        "data": {
+          "vps_host": "VPSホストアドレス",
+          "vps_port": "SSHポート",
+          "vps_username": "SSHユーザー名",
+          "use_ssh_key": "SSH鍵認証を使用"
+        },
+        "data_description": {
+          "vps_host": "VPSのIPアドレスまたはドメイン名(例: 167.179.78.163)",
+          "vps_port": "SSHポート番号(デフォルト: 22)",
+          "vps_username": "VPSにログインするためのSSHユーザー名",
+          "use_ssh_key": "パスワードの代わりにSSH鍵を使用する場合はチェック"
+        }
+      },
+      "password": {
+        "title": "パスワード認証",
+        "description": "SSHパスワードを入力してください",
+        "data": {
+          "vps_password": "SSHパスワード"
+        }
+      },
+      "ssh_key": {
+        "title": "SSH鍵認証",
+        "description": "SSH秘密鍵を入力してください",
+        "data": {
+          "vps_ssh_key": "SSH秘密鍵"
+        },
+        "data_description": {
+          "vps_ssh_key": "こちらにSSH秘密鍵の内容を貼り付けてください"
+        }
+      },
+      "api_config": {
+        "title": "API設定",
+        "description": "監視API設定を構成します",
+        "data": {
+          "api_port": "APIポート",
+          "api_token": "APIトークン"
+        },
+        "data_description": {
+          "api_port": "監視APIサービスのポート(デフォルト: 5001)",
+          "api_token": "APIアクセス用の認証トークン"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "VPSに接続できません",
+      "invalid_auth": "認証情報が無効です",
+      "invalid_host": "VPSホストアドレスが無効です",
+      "unknown": "不明なエラーが発生しました"
+    },
+    "abort": {
+      "already_configured": "このVPSは既に設定されています"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "HA IP Monitor オプション",
+        "description": "詳細オプションを設定します",
+        "data": {
+          "scan_interval": "更新間隔(秒)",
+          "auto_block": "自動的に脅威をブロック",
+          "block_threshold": "自動ブロック閾値(攻撃回数)"
+        }
+      }
+    }
+  }
+}
