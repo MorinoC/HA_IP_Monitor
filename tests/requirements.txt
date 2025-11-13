@@ -1,6 +1,15 @@
 # テスト用依存関係
+# Home Assistant核心（必须先安装）
+homeassistant>=2024.1.0
+
+# pytest测试框架
 pytest>=7.4.0
 pytest-asyncio>=0.21.0
 pytest-homeassistant-custom-component>=0.13.0
 pytest-cov>=4.1.0
+
+# HTTP客户端
 aiohttp>=3.8.0
+
+# Mock API服务器依赖
+flask>=3.0.0

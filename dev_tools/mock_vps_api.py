@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 ファイル名: mock_vps_api.py
 説明: 開発用モックVPS APIサーバー
@@ -12,6 +13,13 @@
     このスクリプトは、開発とテストのためにVPS APIをシミュレートします。
     実際のVPSに接続せずにHome Assistant統合をテストできます。
 """
+import sys
+import io
+
+# Windows環境でUnicode出力を有効化
+if sys.platform == 'win32':
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 import logging
 import random
 from datetime import datetime, timedelta
