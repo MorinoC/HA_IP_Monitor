@@ -10,11 +10,11 @@
 |---------|------|
 | **项目名称** | HA IP Monitor |
 | **项目类型** | Home Assistant HACS 集成 |
-| **当前版本** | v0.1.0-dev (开发阶段) |
+| **当前版本** | v0.2.0-dev (开发阶段) |
 | **开始日期** | 2025-11-12 |
-| **最后更新** | 2025-11-12 |
-| **开发阶段** | Phase 1: 基础框架 ✅ |
-| **完成度** | 25% (框架完成) |
+| **最后更新** | 2025-11-13 |
+| **开发阶段** | Phase 2: 数据层实现 🔄 |
+| **完成度** | 50% (核心功能实现) |
 
 ---
 
@@ -30,13 +30,15 @@
 
 ## 📂 项目结构状态
 
-### ✅ 已完成的文件 (17个)
+### ✅ 已完成的文件 (19个)
 
 #### Home Assistant 集成核心
-- ✅ `custom_components/ha_ip_monitor/__init__.py` - 集成入口
-- ✅ `custom_components/ha_ip_monitor/manifest.json` - HACS元数据
+- ✅ `custom_components/ha_ip_monitor/__init__.py` - 集成入口（已更新集成协调器）
+- ✅ `custom_components/ha_ip_monitor/manifest.json` - HACS元数据（已更新依赖）
 - ✅ `custom_components/ha_ip_monitor/const.py` - 常量定义
 - ✅ `custom_components/ha_ip_monitor/config_flow.py` - 配置向导
+- ✅ `custom_components/ha_ip_monitor/coordinator.py` - 数据协调器 ⭐ NEW
+- ✅ `custom_components/ha_ip_monitor/sensor.py` - 传感器实体（5个传感器）⭐ NEW
 - ✅ `custom_components/ha_ip_monitor/translations/en.json` - 英文翻译
 - ✅ `custom_components/ha_ip_monitor/translations/zh-Hans.json` - 中文翻译
 
@@ -61,11 +63,9 @@
 
 (无)
 
-### ⏳ 待开发的文件 (4个核心文件)
+### ⏳ 待开发的文件 (2个核心文件)
 
-#### 数据层 (Phase 2)
-- ⏳ `custom_components/ha_ip_monitor/coordinator.py` - 数据协调器
-- ⏳ `custom_components/ha_ip_monitor/sensor.py` - 传感器实体
+#### 服务层 (Phase 2)
 - ⏳ `custom_components/ha_ip_monitor/services.yaml` - 服务定义
 - ⏳ `custom_components/ha_ip_monitor/binary_sensor.py` - 二值传感器
 
@@ -78,7 +78,45 @@
 
 ## 📝 最近修改记录
 
-### 2025-11-12 (今天)
+### 2025-11-13 (今天)
+
+#### 新建文件
+1. **实现数据协调器** (`coordinator.py`)
+   - 实现 `HAIPMonitorDataUpdateCoordinator` 类
+   - 每60秒自动从VPS获取数据
+   - 完善的错误处理和重试机制
+   - 实现API请求封装和响应处理
+   - 实现IP封锁/解封功能接口
+   - 代码行数: ~320行
+
+2. **实现传感器平台** (`sensor.py`)
+   - 实现5个基础传感器实体:
+     - `HAIPMonitorBlockedIPsSensor` - 被阻止IP数量
+     - `HAIPMonitorSSHAttacksSensor` - SSH攻击次数
+     - `HAIPMonitorVPNAttacksSensor` - VPN攻击次数
+     - `HAIPMonitorSystemStatusSensor` - VPS系统状态
+     - `HAIPMonitorThreatLevelSensor` - 当前威胁等级
+   - 所有传感器继承 `CoordinatorEntity`
+   - 实现 `extra_state_attributes` 提供详细信息
+   - 动态图标根据状态变化
+   - 代码行数: ~330行
+
+#### 修改文件
+3. **更新集成入口** (`__init__.py`)
+   - 集成 `HAIPMonitorDataUpdateCoordinator`
+   - 实现协调器初始化和首次数据刷新
+   - 修改数据存储方式（从配置数据改为协调器实例）
+
+4. **更新依赖配置** (`manifest.json`)
+   - 添加 `aiohttp>=3.8.0` 依赖
+   - 移除不需要的 `requests` 和 `paramiko` 依赖
+
+#### 代码统计
+- 新增Python代码: ~650行
+- 修改文件: 2个
+- 总代码量: ~2,150行
+
+### 2025-11-12
 
 #### 新建文件
 1. **创建项目基础目录结构**
@@ -185,34 +223,40 @@
 ## 🐛 已知问题
 
 ### 当前版本问题
-(暂无 - 框架阶段)
+- ⚠️ **VPS API未实际部署**: 需要在真实VPS上部署API服务并测试
+- ⚠️ **未进行集成测试**: 需要在Home Assistant中实际测试集成加载
+- ⚠️ **模拟数据测试**: 当前使用默认值，需要连接真实API测试
 
 ### 待解决问题
-- [ ] VPS连接验证功能需要实现
+- [ ] VPS连接验证功能需要实现（config_flow.py中的TODO）
 - [ ] API Token生成和管理需要完善
-- [ ] 日志分析逻辑需要实现
-- [ ] UFW命令集成需要实现
+- [ ] 日志分析逻辑需要实现（VPS API端）
+- [ ] UFW命令集成需要实现（VPS API端）
+- [ ] VPS API的实际业务逻辑需要完善
 
 ---
 
 ## 📋 下一步工作 (优先级排序)
 
 ### 🔥 高优先级 (本周完成)
-1. **实现数据协调器** (`coordinator.py`)
-   - 与VPS API建立通信
-   - 实现数据定期更新
-   - 错误处理和重试机制
+1. **✅ 实现数据协调器** (`coordinator.py`) - 已完成
+   - ✅ 与VPS API建立通信
+   - ✅ 实现数据定期更新
+   - ✅ 错误处理和重试机制
+   - ✅ IP封锁/解封接口
 
-2. **实现传感器实体** (`sensor.py`)
-   - 被阻止IP数量传感器
-   - SSH攻击次数传感器
-   - VPN攻击次数传感器
-   - 系统状态传感器
+2. **✅ 实现传感器实体** (`sensor.py`) - 已完成
+   - ✅ 被阻止IP数量传感器
+   - ✅ SSH攻击次数传感器
+   - ✅ VPN攻击次数传感器
+   - ✅ 系统状态传感器
+   - ✅ 威胁等级传感器
 
-3. **完善VPS API实现**
+3. **完善VPS API实现** - 待完成
    - 实现auth.log日志分析
    - 实现UFW命令执行
    - 实现威胁检测算法
+   - 返回真实的监控数据
 
 ### 📌 中优先级 (下周完成)
 4. **实现服务功能** (`services.yaml`)
@@ -307,6 +351,6 @@
 
 ---
 
-**最后更新**: 2025-11-12 18:30
+**最后更新**: 2025-11-13 15:00
 **更新人**: Claude (AI开发助手)
 **下次更新**: 代码有任何修改时立即更新

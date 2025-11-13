@@ -1,13 +1,12 @@
 """HA IP Monitor統合のメインエントリーポイント"""
 import logging
-from datetime import timedelta
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
-from .const import DOMAIN, UPDATE_INTERVAL
+from .const import DOMAIN
+from .coordinator import HAIPMonitorDataUpdateCoordinator
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -22,13 +21,14 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     # ドメインデータの初期化
     hass.data.setdefault(DOMAIN, {})
 
-    # TODO: データコーディネーターの作成（後で実装）
-    # coordinator = HAIPMonitorDataUpdateCoordinator(hass, entry)
-    # await coordinator.async_config_entry_first_refresh()
+    # データコーディネーターの作成
+    coordinator = HAIPMonitorDataUpdateCoordinator(hass, entry)
+
+    # 初回データ取得を実行
+    await coordinator.async_config_entry_first_refresh()
 
     # エントリーデータに保存
-    # hass.data[DOMAIN][entry.entry_id] = coordinator
-    hass.data[DOMAIN][entry.entry_id] = entry.data
+    hass.data[DOMAIN][entry.entry_id] = coordinator
 
     # プラットフォームのセットアップ
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
