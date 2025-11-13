@@ -50,6 +50,7 @@ secrets.yaml
 id_rsa*
 config.json
 secrets/
+部署信息.md
 
 # Temporary files
 *.tmp

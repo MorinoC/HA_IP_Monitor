@@ -19,6 +19,7 @@ from homeassistant.helpers.update_coordinator import (
     UpdateFailed,
 )
 from homeassistant.exceptions import ConfigEntryAuthFailed
+from homeassistant.util import dt
 
 from .const import (
     DOMAIN,
@@ -92,7 +93,7 @@ class HAIPMonitorDataUpdateCoordinator(DataUpdateCoordinator):
             updated_data = {
                 "status": status_data,
                 "threats": threats_data,
-                "last_update": self.hass.helpers.dt.utcnow().isoformat(),
+                "last_update": dt.utcnow().isoformat(),
             }
 
             _LOGGER.debug(f"データ更新成功: {len(threats_data.get('threat_list', []))}件の脅威")
