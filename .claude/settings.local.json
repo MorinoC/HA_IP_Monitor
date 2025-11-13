@@ -5,7 +5,16 @@
       "Bash(tree:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git push)"
+      "Bash(git push)",
+      "Bash(pip --version:*)",
+      "Bash(pip install:*)",
+      "Bash(pip cache:*)",
+      "Bash(pytest:*)",
+      "Bash(python dev_tools/mock_vps_api.py:*)",
+      "Bash(timeout:*)",
+      "Bash(ping:*)",
+      "Bash(nul)",
+      "Bash(curl:*)"
     ],
     "deny": [],
     "ask": []
