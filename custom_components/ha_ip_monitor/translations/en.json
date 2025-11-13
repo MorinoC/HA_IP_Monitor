@@ -69,5 +69,41 @@
         }
       }
     }
+  },
+  "services": {
+    "block_ip": {
+      "name": "Block IP Address",
+      "description": "Block the specified IP address to prevent access to the VPS server",
+      "fields": {
+        "ip_address": {
+          "name": "IP Address",
+          "description": "The IP address to block (e.g., 192.168.1.100)"
+        },
+        "duration": {
+          "name": "Duration (minutes)",
+          "description": "Block duration in minutes, leave empty for permanent block"
+        }
+      }
+    },
+    "unblock_ip": {
+      "name": "Unblock IP Address",
+      "description": "Remove the block on the specified IP address",
+      "fields": {
+        "ip_address": {
+          "name": "IP Address",
+          "description": "The IP address to unblock (e.g., 192.168.1.100)"
+        }
+      }
+    },
+    "emergency_lockdown": {
+      "name": "Emergency Lockdown",
+      "description": "Activate emergency security lockdown mode and execute additional security measures",
+      "fields": {
+        "reason": {
+          "name": "Reason",
+          "description": "Reason for activating emergency lockdown (optional)"
+        }
+      }
+    }
   }
 }

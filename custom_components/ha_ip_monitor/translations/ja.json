@@ -69,5 +69,41 @@
         }
       }
     }
+  },
+  "services": {
+    "block_ip": {
+      "name": "IPアドレスをブロック",
+      "description": "指定されたIPアドレスをブロックし、VPSサーバーへのアクセスを防止します",
+      "fields": {
+        "ip_address": {
+          "name": "IPアドレス",
+          "description": "ブロックするIPアドレス（例：192.168.1.100）"
+        },
+        "duration": {
+          "name": "持続時間（分）",
+          "description": "ブロック持続時間（分）、空欄の場合は永久ブロック"
+        }
+      }
+    },
+    "unblock_ip": {
+      "name": "IPアドレスのブロック解除",
+      "description": "指定されたIPアドレスのブロックを解除します",
+      "fields": {
+        "ip_address": {
+          "name": "IPアドレス",
+          "description": "ブロック解除するIPアドレス（例：192.168.1.100）"
+        }
+      }
+    },
+    "emergency_lockdown": {
+      "name": "緊急ロックダウン",
+      "description": "緊急セキュリティロックダウンモードを起動し、追加のセキュリティ対策を実行します",
+      "fields": {
+        "reason": {
+          "name": "理由",
+          "description": "緊急ロックダウンを起動する理由（オプション）"
+        }
+      }
+    }
   }
 }

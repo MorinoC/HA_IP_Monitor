@@ -69,5 +69,41 @@
         }
       }
     }
+  },
+  "services": {
+    "block_ip": {
+      "name": "封锁IP地址",
+      "description": "封锁指定的IP地址，阻止其访问VPS服务器",
+      "fields": {
+        "ip_address": {
+          "name": "IP地址",
+          "description": "要封锁的IP地址（例如：192.168.1.100）"
+        },
+        "duration": {
+          "name": "持续时间（分钟）",
+          "description": "封锁持续时间（分钟），留空表示永久封锁"
+        }
+      }
+    },
+    "unblock_ip": {
+      "name": "解封IP地址",
+      "description": "解除指定IP地址的封锁",
+      "fields": {
+        "ip_address": {
+          "name": "IP地址",
+          "description": "要解封的IP地址（例如：192.168.1.100）"
+        }
+      }
+    },
+    "emergency_lockdown": {
+      "name": "紧急锁定",
+      "description": "启动紧急安全锁定模式，执行额外的安全措施",
+      "fields": {
+        "reason": {
+          "name": "原因",
+          "description": "启动紧急锁定的原因（可选）"
+        }
+      }
+    }
   }
 }
