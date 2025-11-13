@@ -203,12 +203,17 @@ def parse_auth_log():
             for line in f:
                 # 今日の日付のログのみ処理
                 try:
-                    # auth.logの日付形式: Nov 13 10:30:45
-                    date_str = ' '.join(line.split()[:3])
-                    log_date = datetime.strptime(
-                        f"{datetime.now().year} {date_str}",
-                        "%Y %b %d %H:%M:%S"
-                    ).date()
+                    # Ubuntu 24.04のauth.logはISO 8601形式: 2025-11-13T05:56:27.584544+00:00
+                    # 旧形式もサポート: Nov 13 10:30:45
+                    if 'T' in line[:30]:  # ISO 8601形式
+                        date_str = line.split('T')[0]
+                        log_date = datetime.strptime(date_str, "%Y-%m-%d").date()
+                    else:  # 旧形式
+                        date_str = ' '.join(line.split()[:3])
+                        log_date = datetime.strptime(
+                            f"{datetime.now().year} {date_str}",
+                            "%Y %b %d %H:%M:%S"
+                        ).date()
 
                     if log_date != today:
                         continue
